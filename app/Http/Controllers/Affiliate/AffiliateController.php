@@ -29,6 +29,7 @@ class AffiliateController extends Controller
     {    
         $id = $request->id;
         $data = $request->all();
+        $data['referral_code'] = uniqid();  
         $action = "Added";
         if ($id) {
             $action = "Updated";

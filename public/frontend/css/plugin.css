@@ -1825,7 +1825,7 @@
 .slider-section .slick-prev:before, .slider-section .slick-next:before{font-size: 36px;}
 
 .slick-prev {
-    left:15px;
+    left:-2px;
 }
 
 [dir='rtl'] .slick-prev {
@@ -1842,7 +1842,7 @@
 }
 
 .slick-next {
-    right: -30px;
+    right: -5px;
 }
 
 [dir='rtl'] .slick-next {
@@ -3314,8 +3314,8 @@
 }
 .testimonial_094_indicators > .carousel-indicators li{
   padding: 0;
-  width: 90px;
-  height: 90px;
+  width: 45px;
+  height: 45px;
   border: none;
   text-indent: 0;
   margin:  0 6px;
@@ -3342,8 +3342,8 @@
 }
 .testimonial_094_indicators > .carousel-indicators .active{
   padding: 0;
-  width: 130px;
-  height: 130px;
+  width: 50px;
+  height: 50px;
   border: none;
   margin: 0 6px;
   border-radius: 50%;

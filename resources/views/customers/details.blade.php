@@ -1,9 +1,14 @@
 <div class="panel panel-default panel-fill">
    <div class="panel-body">
       <div class="about-info-p">
-         <strong>Full Name</strong>
+         <strong>First Name</strong>
          <br>
-         <p class="text-muted">{{$data['customer']->name}}</p>
+         <p class="text-muted">{{$data['customer']->first_name}}</p>
+      </div>
+      <div class="about-info-p">
+         <strong>Last Name</strong>
+         <br>
+         <p class="text-muted">{{$data['customer']->last_name}}</p>
       </div>
       <div class="about-info-p">
          <strong>Phone#</strong>

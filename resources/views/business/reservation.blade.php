@@ -23,8 +23,6 @@
                         <th>Time</th>
                         <th>Remarks</th>
                         <th>Number Of People</th>
-                        <th>Total Tickets</th>
-                        <th>Price</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -32,12 +30,10 @@
                      <tr>
                         <td>{{$key+1}}</td>
                         <td>{{isset($value->business_name->name) ? $value->business_name->name : ''}}</td>
-                        <td>{{$value->date}}</td>
+                        <td>{{ date('d-m-Y', strtotime($value->date));}}</td>
                         <td>{{$value->time}}</span></td>
                         <td>{{Str::words(strip_tags($value->remarks), 20)}}</td>
                         <td>{{$value->people}}</td>
-                        <td>{{$value->total_tickets}}</td>
-                        <td>{{$value->price}}</td>
                      </tr>
                      @endforeach
                   </tbody>

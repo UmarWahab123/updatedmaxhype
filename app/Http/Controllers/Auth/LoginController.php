@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,9 +20,7 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
-
     /**
      * Where to redirect users after login.
      *
@@ -38,7 +35,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
     }
     public function login(){
         return view('auth.login');
@@ -56,15 +53,12 @@ class LoginController extends Controller
             'email'     => 'required',
             'password'  => 'required'
         ]);
-
-
         if (Auth::attempt(['email' => $email, 'password' => $password]))
         {
             $user=Auth::user();
-            // dd($user);
             if($user->status=="Inactive"){
                 Auth::logout();
-                Session::put("login_error",'Sorry! Your account is suspended. Contact our support team for further info');
+                 Session::put("login_error",'Sorry! Your account is suspended. Contact our support team for further info');
                 return redirect('admin/login');
             }
          return redirect('/admin/home');
@@ -74,16 +68,12 @@ class LoginController extends Controller
             Session::put("login_error",'Credentials do not match our records');
             return redirect('/admin/login');
         }
-
         // $SiteUser = Login::where('email',$request->email)->where('password',md5($request->password))->first();
         // dd($SiteUser);
         // session_start();
-
         // if($SiteUser)
         // {
         // Session::put('login', $SiteUser);
-
-
         //     return Redirect('/home');
         // }
         // else
@@ -91,7 +81,6 @@ class LoginController extends Controller
         //     return redirect('/login');
         // }
     }
-
      public function applogin(Request $request){
           $data=$request->all();
         //   dd($data);
@@ -130,9 +119,6 @@ class LoginController extends Controller
            //dd($response);
           return json_encode($response);
    }
-
- 
-
      public function get_user($id)
      {
          $data=User::where('id',$id)->first();
@@ -140,5 +126,4 @@ class LoginController extends Controller
            //dd($data);
           return json_encode($response);
      }
-
 }

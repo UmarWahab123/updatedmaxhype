@@ -98,6 +98,19 @@ if(!function_exists('db_format_date_month')){
         }
     }
 }
+if(!function_exists('db_format_date_slash')){
+    function db_format_date_slash($date)
+    {
+        if(empty($date)){
+            return null;
+        }
+        else{
+            $date = explode('/', $date);
+            $date = $date[2].'-'.$date[1].'-'.$date[0];
+            return $date;
+        }
+    }
+}
 function get_settings($column){
       $data=\App\Models\Setting\Settings::select($column)->first();
        $data = $data->$column;
@@ -108,9 +121,26 @@ function get_business(){
        $data = $data;
        return $data;
 }
+// function getFormdata($data){
+//     echo env('FORM_DATA');
+//     putenv('FORM_DATA='.$data);
+//     dd(env('FORM_DATA')) ;
+//      $formdata = putenv('FORM_DATA = asdasda');
+//      return $formdata;
+// }
 function get_membership(){
       $data=\App\Models\Memberships\Membership::get();
        $data = $data;
+       return $data;
+}
+function get_availability($total_tickets,$product_id){
+       $data=\App\Models\Reservations\Reservation::where('product_id',$product_id)->sum('people');
+       $data =$total_tickets-$data;
+       return $data;
+}
+function get_availability_tickets($total_tickets,$product_id){
+       $data=\App\Models\Reservations\Reservation::where('product_id',$product_id)->sum('total_tickets');
+       $data =$total_tickets-$data;
        return $data;
 }
 /*

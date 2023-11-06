@@ -7,7 +7,7 @@
                 <h2>About Us</h2>
                 <nav aria-label="breadcrumb">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">About Us</li>
                     </ul>
                 </nav>
@@ -124,7 +124,7 @@ The primary purpose of <a href="{{url('/')}}">Themaxhype.com</a> is to link peop
                         <h3>{{$value->title}}</h3>
                     </div>
                     <div class="price-table-price">
-                        <span>{{$value->price}}</span>
+                        <span>$ {{$value->price}}</span>
                     </div>
                     <div class="price-table-content">
                         <ul>
@@ -144,7 +144,7 @@ The primary purpose of <a href="{{url('/')}}">Themaxhype.com</a> is to link peop
                         <h3>{{$value->title}}</h3>
                     </div>
                     <div class="price-table-price">
-                        <span>{{$value->price}}</span>
+                        <span>$ {{$value->price}}</span>
                     </div>
                     <div class="price-table-content">
                         <ul>
@@ -164,7 +164,7 @@ The primary purpose of <a href="{{url('/')}}">Themaxhype.com</a> is to link peop
                         <h3>{{$value->title}}</h3>
                     </div>
                     <div class="price-table-price">
-                        <span>{{$value->price}}</span>
+                        <span>$ {{$value->price}}</span>
                     </div>
                     <div class="price-table-content">
                         <ul>

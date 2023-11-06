@@ -18,7 +18,8 @@
                   <thead>
                      <tr role="row">
                         <th>Sr No</th>
-                        <th>Owner Name</th>
+                        <th>Owner First Name</th>
+                        <th>Owner Last Name</th>
                         <th>Business Name</th>
                         <th>Added Date</th>
                      </tr>
@@ -27,7 +28,8 @@
                      @foreach($data['results'] as $key=>$value)
                      <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$value->owner_name}}</td>
+                        <td>{{$value->first_name}}</td>
+                        <td>{{$value->last_name}}</td>
                         <td>{{$value->name}}</td>
                         <td>{{$value->created_at}}</td>
                      </tr>

@@ -28,7 +28,7 @@
                   <p class="package-days"><i class="flaticon-time"></i> 5 days</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
                   <div class="package-info">
-                     <a href="tour-detail.html" class="btn-blue btn-red">View more details</a>
+                     <a href="#" class="btn-blue btn-red">View more details</a>
                   </div>
                </div>
             </div>
@@ -53,7 +53,7 @@
                   <p class="package-days"><i class="flaticon-time"></i> 5 days</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
                   <div class="package-info">
-                     <a href="tour-detail.html" class="btn-blue btn-red">View more details</a>
+                     <a href="#" class="btn-blue btn-red">View more details</a>
                   </div>
                </div>
             </div>
@@ -78,7 +78,7 @@
                   <p class="package-days"><i class="flaticon-time"></i> 5 days</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
                   <div class="package-info">
-                     <a href="tour-detail.html" class="btn-blue btn-red">View more details</a>
+                     <a href="#" class="btn-blue btn-red">View more details</a>
                   </div>
                </div>
             </div>
@@ -103,7 +103,7 @@
                   <p class="package-days"><i class="flaticon-time"></i> 5 days</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
                   <div class="package-info">
-                     <a href="tour-detail.html" class="btn-blue btn-red">View more details</a>
+                     <a href="#" class="btn-blue btn-red">View more details</a>
                   </div>
                </div>
             </div>
@@ -128,7 +128,7 @@
                   <p class="package-days"><i class="flaticon-time"></i> 5 days</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
                   <div class="package-info">
-                     <a href="tour-detail.html" class="btn-blue btn-red">View more details</a>
+                     <a href="#" class="btn-blue btn-red">View more details</a>
                   </div>
                </div>
             </div>
@@ -153,7 +153,7 @@
                   <p class="package-days"><i class="flaticon-time"></i> 5 days</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
                   <div class="package-info">
-                     <a href="tour-detail.html" class="btn-blue btn-red">View more details</a>
+                     <a href="#" class="btn-blue btn-red">View more details</a>
                   </div>
                </div>
             </div>

@@ -419,7 +419,12 @@ mark, .mark {
 .list-inline-item:not(:last-child) {
   margin-right : 0.5rem;
 }
-
+.login-latest-logo{
+  margin-top: -23px;
+    width: 160px;
+    height: 80px;
+}
+}
 .initialism {
   font-size : 90%;
   text-transform : uppercase;

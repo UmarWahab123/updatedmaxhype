@@ -21,9 +21,7 @@
          <li data-target="#testimonial_094" data-slide-to="3">
             <img src="{{asset('/frontend/images')}}/testemonial4.jpg" alt="testimonial_094_04"> <!-- 4th Image -->
          </li>
-         <li data-target="#testimonial_094" data-slide-to="4">
-            <img src="{{asset('/frontend/images')}}/testemonial5.jpg" alt="testimonial_094_05"> <!-- 5th Image -->
-         </li>
+         
       </ol>
       <!-- Wrapper For Slides -->
       <div class="carousel-inner" role="listbox">
@@ -31,15 +29,15 @@
          <div class="carousel-item active">
             <!-- Text Layer -->
             <div class="testimonial_094_slide">
-               <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur adipiscing luctus massa nteger ut purus ac augue commodo commodo unc nec mi eu justo tempor consectetuer tiam.</p>
+               <p>Amazing ! This is one of the best platform for your's businesses,I recomend this for all business owner to join it & promote your business.</p>
                <div class="deal-rating">
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star-o"></span>
-                  <span class="fa fa-star-o"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
                </div>
-               <h5><a href="#">Susan Doe, Houston</a></h5>
+               <h5><a href="#">Oliver Jake</a></h5>
             </div>
             <!-- /Text Layer -->
          </div>
@@ -49,15 +47,15 @@
          <div class="carousel-item">
             <!-- Text Layer -->
             <div class="testimonial_094_slide">
-               <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur adipiscing luctus massa nteger ut purus ac augue commodo commodo unc nec mi eu justo tempor consectetuer tiam.</p>
+               <p>Mind Blowing ! One of the best platform to promote your business in very short time also best place for businesses.</p>
                <div class="deal-rating">
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star-o"></span>
-                  <span class="fa fa-star-o"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
                </div>
-               <h5><a href="#">Susan Doe, Houston</a></h5>
+               <h5><a href="#">James Charlie</a></h5>
             </div>
             <!-- /Text Layer -->
          </div>
@@ -67,15 +65,15 @@
          <div class="carousel-item">
             <!-- Text Layer -->
             <div class="testimonial_094_slide">
-               <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur adipiscing luctus massa nteger ut purus ac augue commodo commodo unc nec mi eu justo tempor consectetuer tiam.</p>
+               <p>Maxhype is best place to provide different businesses for customers to easily purchase or reseve the business product.</p>
                <div class="deal-rating">
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star-o"></span>
-                  <span class="fa fa-star-o"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
                </div>
-               <h5><a href="#">Susan Doe, Houston</a></h5>
+               <h5><a href="#">Harry Callum</a></h5>
             </div>
             <!-- /Text Layer -->
          </div>
@@ -85,36 +83,22 @@
          <div class="carousel-item">
             <!-- Text Layer -->
             <div class="testimonial_094_slide">
-               <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur adipiscing luctus massa nteger ut purus ac augue commodo commodo unc nec mi eu justo tempor consectetuer tiam.</p>
+               <p>Surely, This is amazing platform to provide businesses in different location for customers and also to expend the business scope to purchase or reseve the business product from the different location.</p>
                <div class="deal-rating">
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star-o"></span>
-                  <span class="fa fa-star-o"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
                </div>
-               <h5><a href="#">Susan Doe, Houston</a></h5>
+               <h5><a href="#">Thomas Joe</a></h5>
             </div>
             <!-- /Text Layer -->
          </div>
          <!-- /item -->
          <!-- End of Fourth Slide -->
          <!-- Fifth Slide -->
-         <div class="carousel-item">
-            <!-- Text Layer -->
-            <div class="testimonial_094_slide">
-               <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur adipiscing luctus massa nteger ut purus ac augue commodo commodo unc nec mi eu justo tempor consectetuer tiam.</p>
-               <div class="deal-rating">
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star-o"></span>
-                  <span class="fa fa-star-o"></span>
-               </div>
-               <h5><a href="#">Susan Doe, Houston</a></h5>
-            </div>
-            <!-- /Text Layer -->
-         </div>
+       
          <!-- /item -->
          <!-- End of Fifth Slide -->
       </div>

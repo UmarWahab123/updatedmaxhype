@@ -1,4 +1,10 @@
 <IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^(www\.)?themaxhype\.com$ [NC]
+RewriteRule ^(.*)$ https://themaxhype.com/$1 [L,R=301]
+</IfModule>
+<IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>

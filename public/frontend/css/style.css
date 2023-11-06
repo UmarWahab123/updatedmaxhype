@@ -93,8 +93,16 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
-
-
+ .w-5{
+       display: none;
+    }
+.text-sm{
+     margin-top: 20px;
+}
+.fully-booked{
+background: #ffae00 !important;
+    color: revert;
+}
 
 * {
 
@@ -114,6 +122,8 @@
 
 }
 
+.search-input{
+}
 
 
 ol, ul {
@@ -130,7 +140,12 @@ ol, ul {
 
 }
 
-
+.search-results {
+    position: absolute;
+    width: 100%;
+    height: 400px !important;
+    z-index: 9999999;
+}
 .clear {
 
   clear: both;
@@ -170,7 +185,6 @@ ol, ul {
 }
 
 
-
 * html .clearfix {
 
   height: 1%; 
@@ -185,7 +199,15 @@ ol, ul {
 
 }
 
-
+#productModal{
+z-index: 55555555;
+}
+.products_detail{
+  padding: 9px;
+}
+.change-background{
+  background-color: green !important;
+}
 
 header,
 
@@ -486,6 +508,10 @@ label{
   margin-bottom: 5px;
 
 }
+.product-show{
+    overflow-x: auto;
+    white-space: nowrap;
+}
 
 .btn-blue{
 
@@ -514,7 +540,53 @@ abtn-blue:hover{
   border-color: #005294;
 
 }
+.product-icons{
+  font-size: -webkit-xxx-large;
+  color: gray;
+   position:absolute;
+  right:18px;
+  top:13px
 
+}
+.reserve-icon{
+  font-size: -webkit-xxx-large;
+  color: gray;
+   position:absolute;
+  right:18px;
+  top:13px
+
+}
+.videos-icon{
+  font-size: -webkit-xxx-large;
+  color: gray;
+  position:absolute;
+  right:18px;
+  top:13px
+
+}
+.images-icon{
+  font-size: -webkit-xxx-large;
+  color: gray;
+  position:absolute;
+  right:18px;
+  top:13px
+}
+.count-num{
+    margin-bottom: 22px;
+    margin-top: -23px;
+}
+.count-item{
+  color: cornflowerblue;
+  font-family: 'Roboto';
+}
+.tses{
+    white-space:nowrap;
+ overflow:hidden;
+}
+.count-card{
+  background-color: mintcream;
+
+}
 .btn-white{
 
   background: transparent;
@@ -524,7 +596,14 @@ abtn-blue:hover{
   color: #fff;
 
 }
-
+.popular-packages h5 span 
+{
+  color: #1690c0;
+}
+.popular-packages h5 a
+{
+  color: #1690c0;
+}
 .btn-red{
 
   background: #D60D45;
@@ -682,7 +761,16 @@ abtn-blue:hover{
   margin-bottom: 15px;
 
 }
-
+.war-message{
+  color: orange;
+}
+#loginModal{
+ z-index: 555555;
+}
+#details{
+ z-index: 555555;
+}
+}
 .section-icon:before{
 
   position: absolute;
@@ -832,7 +920,30 @@ section.breadcrumb-outer{
   border-radius: 0;
 
 }
+.reservation-crumb{
+   margin-bottom: 0;
 
+  background-color:#fff;
+
+  padding: 12px 30px;
+
+  box-shadow: 0 0 10px #ccc;
+
+  position: absolute;
+
+  left: 0;
+
+  right: 0;
+
+  width: 65% !important;
+
+  margin: 0 auto;
+
+  bottom: -23px;
+
+  border-radius: 0;
+
+}
 .breadcrumb-content li{
 
   margin-bottom: 0;
@@ -916,8 +1027,48 @@ ul.pagination{
   border-radius: 0;
 
 }
-
-
+/*Footer view styles portion */
+.cv-lable-style{
+  margin-bottom: -9px;
+}
+.company_link{
+  color: red;
+  font-size: 18px;
+  font-family: 'Poppins';
+  cursor: pointer;
+}
+.para-style{
+  font-size: 16px;
+  font-family: 'Poppins';
+}
+.latest-style{
+  font-size: 16px;
+  font-family: 'Poppins';
+}
+.combine-class{
+  font-weight: 600;
+}
+.right-footer{
+  color: red;
+}
+ul.latest-style li {
+    list-style: initial;
+    list-style-type: disclosure-closed;
+}
+.latest-list-style li{
+  list-style: initial;
+    list-style-type: disclosure-closed
+}
+.list-head-style{
+    list-style: auto;
+    list-style-type: auto;
+  
+}
+.latest2-style{
+    font-size: 16px;
+  font-family: 'Poppins';
+}
+/*end portion*/
 
 label.error {
 
@@ -1746,7 +1897,7 @@ ul.nav-mini li i{color: #fff; padding-right: 5px;}
 
 .logo img{
 
-  width: 80%;
+  width: 100%;
 
 }
 
@@ -1760,14 +1911,15 @@ ul.nav-mini li i{color: #fff; padding-right: 5px;}
 
 }
 
-.upper-head{
 
-  background: #005294;
-
-  padding: 10px 0;
-
+.latest-logo{
+  width: 160px !important;
+  height: 80px !important;
 }
-
+.latest-logo-footer{
+   width: 160px !important;
+  height: 80px !important;
+}
 .header-menu{
 
   padding: 10px 0;
@@ -1779,9 +1931,47 @@ ul.nav-mini li i{color: #fff; padding-right: 5px;}
 .contact-info{
 
   display: inline-block;
+   white-space: nowrap;
 
 }
+.all-tickets-name{
+  cursor: pointer;
 
+}
+.all-tickets-head{
+  cursor: pointer;
+
+}
+.all-country-name{
+  cursor: pointer;
+}
+.all-country-head{
+  cursor: pointer;
+
+}
+.all-businesses-head{
+  cursor: pointer;
+
+}
+.all-businesses-name{
+  cursor: pointer;
+
+}
+.all-businesses-name:hover{
+  color: deepskyblue;
+}
+.all-country-name:hover{
+  color: deepskyblue;
+}
+.all-tickets-name:hover{
+  color: deepskyblue;
+}
+.busines-name{
+ white-space:nowrap;
+ overflow:hidden;
+ background-color: honeydew;
+
+}
 .upper-head p{
 
   margin-bottom: 0;
@@ -2064,7 +2254,7 @@ ul.nav-mini li i{color: #fff; padding-right: 5px;}
 
   position: relative;
 
-  padding: 25px 0;
+  padding: 0px 0;
 
 }
 
@@ -2486,7 +2676,10 @@ section.swiper-banner{
 
 }
 
-
+.available-style{
+   white-space: nowrap;
+  
+}
 
 .slider a.btn-blue {
 
@@ -4127,6 +4320,7 @@ footer{
   right: 0;
 
   top: 0;
+  bottom: 0px;
 
   padding: 10px;
 
@@ -7432,6 +7626,7 @@ td.b-id{
   margin-top: 23px;
 
   border-top: 1px solid #f1f1f1;
+  margin-top: 10px;
 
 }
 
@@ -7664,6 +7859,8 @@ a.forgotpw{
   padding: 30px 20px;
 
   background: #D60D45;
+  
+  min-height: 215px;
 
 }
 
@@ -7846,9 +8043,8 @@ section.aboutus{
 }
 
 .about-content{
-
   padding-top: 20px;
-
+  min-height: 290px;
 }
 
 .about-content p{
@@ -13480,3 +13676,10 @@ body.style-tab::after {
 
 
 .datepicker th, .datepicker td{padding: 5px; text-align: center; font-size:14px;}
+.upper-head{
+
+  background: #005294;
+  display: block !important;
+  padding: 10px 0;
+
+}

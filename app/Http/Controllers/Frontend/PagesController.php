@@ -14,84 +14,32 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestMail;
 use App\Models\Video;
+use App\Models\Product\Product;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Stripe;
 class PagesController extends Controller
 {
-  public function forget_pass(){
-    return view('frontend.auth.forget-password');
-  }
-  public function about(){
-    $data['packages'] = Membership::get();
-    return view('frontend.about.about',compact('data'));
-  }
-  public function businesses($type){
-    $data['type'] =$type; 
-    $data['results'] = User::where('type',$type)->get();
-    return view('frontend.businesses.index',compact('data'));
-  }
-  public function business_details($id){
-    $data['businesses'] = User::where('role_id',3)->get();
-    $data['details'] = User::where('id',$id)->first();
-    return view('frontend.businesses.details',compact('data'));
-  }
-  public function memberships(){
-    $data['packages'] = Membership::get();
-    return view('frontend.membership.index',compact('data'));
-  }
-  public function bookings($id){
-    $user=Auth::user();
-     // dd($user);
-    $data['country'] = Countries::get();
-    $data['details'] = Membership::where('id',$id)->first();
-    $data['businesses'] = User::where('role_id',3)->get();
-    return view('frontend.membership.booking',compact('data'));
-  }
-  public function reservation($id,$type){
-    $data['type'] = $type;
-    // dd($data['type']);
-    $data['id'] = $id;
-    return view('frontend.businesses.reservation',compact('data'));
-  }
-  public function save_reservation(Request $request){
-    $data = $request->all();
-    $data['date'] = db_format_date($request->date);
-    $affected_rows = Reservation::create($data);
-    $response = array('response' => $affected_rows);
-        return json_encode($response);
- }
- //submit a booking form 
-  public function savebookings(Request $request){
-      $id = $request->id;
-      $data = $request->all();
-      $business = $data['business'];
-      $memberships = $data['booking'];
-      $action = "Added";
-      $affected_rows = User::create($business);
-      $memberships['users_id'] = $affected_rows->id;
-      $affected_rows = Booking::create($memberships);
-      // $this->send_email_test1($business['personal_email'],'Welcome to Maxhype','frontend.emails.mail',$data);
-      $response = array('response' =>$affected_rows);
-        return json_encode($response);
-    }
    function send_email_test1($email,$subject,$template,$data)
     {
         Mail::send($template, ['data'=>$data], function($message) use ($subject, $email) {
                 $message->to($email,$subject)->subject($subject);
-                $message->from('wahabumaar@gmail.com',$subject);
+                $message->from('asad@igtechservices.com',$subject);
            });
     }
     public function getcity($id)
     {
         $data['cities'] = Cities::where('location_country_id', $id)->get();
+        // dd($data['cities']);
         $option = '';
         $option .= '<option value="">Select</option>';  
+
         foreach($data['cities'] as $value){
         $option .= '<option data-zipcode="'.$value->location_city_zipcode.'" value="'.$value->id.'">'.$value->location_city_name.'</option>';  
     }
-      $response = array('response' =>$option);
+        $option .= '<option class="others">Other</option>';  
+      $response = array('response' => $option);
         return json_encode($response);
    }
    public function dashboard($id,$type='business'){
@@ -100,9 +48,11 @@ class PagesController extends Controller
     $data['reservation'] = Reservation::where('business_id',$id)->where('type','Reservation')->get();
     $data['purchase'] = Reservation::where('business_id',$id)->where('type','Purchase')->get();
     $data['country'] = Countries::get();
-    $data['type'] = $type;
-    // dd($data['results']);
+    // $data['cities'] = Cities::where('location_country_id',Auth::user()->country)->get();
+    $data['products']=Product::where('business_id', $id)->get();
 
+    // $data['products']=view('frontend.dashboard.partial.products', compact('data'))->render();
+    $data['type'] = $type;
     $data['business'] = User::where('role_id',3)->get();
 
 
@@ -110,19 +60,21 @@ class PagesController extends Controller
    }
    public function customer_dashboard($id){
     $data['results'] = User::where('id',$id)->first();
-    $data['reservation'] = Reservation::where('business_id',$id)->where('type','Reservation')->get();
-    $data['purchase'] = Reservation::where('business_id',$id)->where('type','Purchase')->get();
+    $data['reservation'] = Reservation::where('customer_id',$id)->where('type','Reservation')->get();
+    // dd($data['reservation']);
+    $data['purchase'] = Reservation::where('customer_id',$id)->where('type','Purchase')->get();
     $data['country'] = Countries::get();
     // $data['business'] = User::where('role_id',3)->get();
     return view('frontend.dashboard.customer_dashboard',compact('data'));
    }
-  public function affiliate_dashboard($id,$type){
+   public function affiliate_dashboard($id,$type){
+    $data['country'] = Countries::get();
     $data['results'] = User::where('id',$id)->first();
     $data['businesses'] = User::where('affiliate_id',$id)->get();
     $data['type']=$type;
     return view('frontend.dashboard.affiliate_dashborad',compact('data'));
    }
-  public function reservationmodal($id,$type)
+   public function reservationmodal($id,$type)
     {
        $data['type'] = $type;
         $data['reservation'] = Reservation::where('business_id', $id)->where('type',$type)->get();
@@ -150,17 +102,45 @@ class PagesController extends Controller
         $response = array('response' =>$modal);
         return json_encode($response);
     }
- public function saveinfo2(Request $request)
+  public function saveinfo2(Request $request)
     {    
         $id = $request->id;
         $data = $request->all();
+        $country=$data['country'];
+        $zip_code=$data['postal_code'];
+        $other_city=$data['other_city'];
+        if(!empty($other_city))
+        {
+        $cities=['location_city_name'=>$other_city,'location_city_zipcode'=>$zip_code,'location_country_id'=>$country];
+        $affected_rows = Cities::create($cities);
+        $city_id = $affected_rows->id;
+        $data['city']=$city_id;
+        }
+        unset($data['other_city']);
         $affected_rows = User::find($id)->update($data);
         $data['results'] = User::where('id',$id)->first();
         $modal = view('frontend.dashboard.business-info',compact('data'))->render();
         $response = array('response' =>$modal);
         return json_encode($response);
     }
-  public function videomodal(Request $request)
+    public function savebusiness(Request $request)
+    {    
+        $id = $request->id;
+        $data = $request->all();
+         if(!empty($data['password'])){
+
+            $data['password'] = Hash::make($data['password']);
+
+        }else{
+
+            unset($data['password']);
+
+        }
+        $affected_rows = User::create($data);
+        $response = array('response' =>$affected_rows);
+        return json_encode($response);
+    }
+    public function videomodal(Request $request)
      {
         $data['users_id'] = $request->users_id;
         $data['results'] = Video::where('id', $request->id)->first();
@@ -220,7 +200,6 @@ class PagesController extends Controller
             $affected_rows = $modal->update($data);
         } else {
             $affected_rows = Video::create($data);
-
         }
         $data['videos'] = Video::where('users_id', $request->users_id)->get();
         $data['type'] = 'business';
@@ -243,6 +222,7 @@ class PagesController extends Controller
         foreach($data['cities'] as $value){
         $option .= '<option data-zipcode="'.$value->location_city_zipcode.'" value="'.$value->id.'">'.$value->location_city_name.'</option>';  
     }
+    $option .= '<option class="others">Other</option>';  
       $response = array('response' =>$option);
         return json_encode($response);
 }
@@ -274,20 +254,6 @@ class PagesController extends Controller
         } else {
             echo 'No files';
         }
-    }
-    public function paymentintent(Request $request)
-     {
-       $amount=$request->price;
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $intent=Stripe\paymentintent::create ([
-                "amount" => $amount * 100,
-                "currency" => "USD",
-                
-        ]);
-
-        // Session::flash('success', 'Payment successful!');
-           
-        return $intent->client_secret;
     }
 }
 ?>

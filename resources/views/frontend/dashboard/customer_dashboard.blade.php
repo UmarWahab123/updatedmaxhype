@@ -10,7 +10,7 @@
          <h2>Customer Dashboard</h2>
          <nav aria-label="breadcrumb">
             <ul class="breadcrumb">
-               <li class="breadcrumb-item"><a href="#">Home</a></li>
+               <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                <li class="breadcrumb-item active" aria-current="page">Customer Dashboard</li>
             </ul>
          </nav>
@@ -25,23 +25,25 @@
         <div class="user-list-image">
             <img src="{{$data['results']->dp}}" alt="">
         </div>
-            <h2 class="profile-style">{{$data['results']->name}}</h2>
+            <h2 class="profile-style">{{$data['results']->first_name}}&nbsp{{$data['results']->last_name}}</h2>
             <p class="business-email">{{$data['results']->email}}</p>
     </div>
   <hr/>
    <div class="row ml-md-5">
    <div class="col-md-12">
       <ul class="nav nav-tabs">
-         <li class="active"><a data-toggle="tab" href="#home">Basic Info</a></li>
+         <li class="tab active"><a data-toggle="tab" href="#home">Basic Info</a></li>
          &nbsp&nbsp&nbsp&nbsp
-         <li><a data-toggle="tab" href="#menu2">Purchases</a></li>
+         <li class="tab"><a data-toggle="tab" href="#menu2">Purchases</a></li>
          &nbsp&nbsp&nbsp&nbsp
-         <li><a data-toggle="tab" href="#menu3">Reservations</a></li>
+         <li class="tab"><a data-toggle="tab" href="#menu3">Reservations</a></li>
          &nbsp&nbsp&nbsp&nbsp
       </ul>
      <div class="tab-content">
          <div id="home" class="tab-pane active">
+         @if(Auth::user()->id==$data['results']->id)
           <button class="btn-blue btn-red reserve text-white mr-4 edit-info">Edit Info</button><br><br>
+          @endif
             <div class="row">
                <div class="col-lg-12 col-md-12 col-xs-12 traffic">
                   <div class="dashboard-list-box">
@@ -86,22 +88,10 @@
                                      </div>
                                   </div>
                                   <div class="row">
-                                     <div class="col-md-6">
+                                     <div class="col-md-10">
                                         <div class="form-group m-form__group">
                                            <label>Address</label>
                                            <input type="text" name="address" class="form-control" value="{{(isset($data['results']->address) ? $data['results']->address : '')}}">
-                                        </div>
-                                     </div>
-                                      <div class="col-md-3">
-                                        <div class="form-group m-form__group">
-                                           <label>Postal Code</label>
-                                           <input type="text" name="postal_code" class="form-control" value="{{(isset($data['results']->postal_code) ? $data['results']->postal_code : '')}}">
-                                        </div>
-                                     </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group m-form__group">
-                                           <label>Status</label>
-                                           <input type="text" name="status" class="form-control" value="{{(isset($data['results']->status) ? $data['results']->status : '')}}">
                                         </div>
                                      </div>
                                   </div>
@@ -111,7 +101,7 @@
                       </form>
                 <!-- End form -->
                   <div class="info-table">
-                     <h4 class="gray">{{$data['results']->name}} Information</h4>
+                     <h4 class="gray">{{$data['results']->first_name}} Information</h4>
                      <div class="table-box customer-info">
                     @include('frontend.dashboard.customer-info')
                       
@@ -132,12 +122,11 @@
                               <tr role="row">
                                  <th>Sr No</th>
                                  <th>Business Name</th>
-                                 <th>Date</th>
-                                 <th>Time</th>
                                  <th>Remarks</th>
-                                 <th>Number Of People</th>
                                  <th>Total Tickets</th>
-                                 <th>Price</th>
+                                 <th>Unit Price</th>
+                                 <th>Total Price</th>
+
                               </tr>
                            </thead>
                            <tbody>
@@ -145,12 +134,10 @@
                               <tr>
                                  <td>{{$key+1}}</td>
                                  <td>{{isset($value->business_name->name) ? $value->business_name->name : ''}}</td>
-                                 <td>{{$value->date}}</td>
-                                 <td>{{$value->time}}</span></td>
                                  <td>{{$value->remarks}}</td>
-                                 <td>{{$value->people}}</td>
                                  <td>{{$value->total_tickets}}</td>
                                  <td>{{$value->price}}</td>
+                                 <td>{{$value->total_price}}</td>
                               </tr>
                               @endforeach
                            </tbody>
@@ -175,21 +162,17 @@
                                  <th>Time</th>
                                  <th>Remarks</th>
                                  <th>Number Of People</th>
-                                 <th>Total Tickets</th>
-                                 <th>Price</th>
                               </tr>
                            </thead>
                            <tbody>
                               @foreach($data['reservation'] as $key=>$value)
                               <tr>
-                                 <td>{{$key+1}}q</td>
+                                 <td>{{$key+1}}</td>
                                  <td>{{isset($value->business_name->name) ? $value->business_name->name : ''}}</td>
                                  <td>{{$value->date}}</td>
                                  <td>{{$value->time}}</span></td>
                                  <td>{{$value->remarks}}</td>
                                  <td>{{$value->people}}</td>
-                                 <td>{{$value->total_tickets}}</td>
-                                 <td>{{$value->price}}</td>
                               </tr>
                               @endforeach
                            </tbody>
@@ -211,6 +194,11 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+      $(".tab").click(function () {
+       $(".tab").removeClass("active");
+       // $(".tab").addClass("active"); // instead of this do the below 
+       $(this).addClass("active");   
+   });
  //to triger the dropdown selected option
     $('select[data-option-id]').each(function (){
         $(this).val($(this).data('option-id'));

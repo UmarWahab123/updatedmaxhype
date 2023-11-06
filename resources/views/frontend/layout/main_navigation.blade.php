@@ -5,7 +5,7 @@
             <!-- start Navbar (Header) -->
             <nav class="navbar navbar-default navbar-sticky-function navbar-arrow">
                <div class="logo pull-left">
-                  <a href="{{url('/')}}"><img alt="Image" width="126" height="58" src="{{asset(get_settings('logo'))}}"></a>
+                  <a href="{{url('/')}}"><img class="latest-logo" alt="Image" width="120" height="58" src="{{asset(get_settings('logo'))}}"></a>
                </div>
                <div id="navbar" class="navbar-nav-wrapper">
                   <ul class="nav navbar-nav" id="responsive-menu">
@@ -28,7 +28,7 @@
                         </ul>
                      </li>
                      <li>
-                        <a href="{{url('/memberships')}}">Membership</a>
+                        <a href="{{url('/memberships')}}">Add A Business</a>
                      </li>
                      <li>
                         <a href="{{url('/about')}}">About Us</a>

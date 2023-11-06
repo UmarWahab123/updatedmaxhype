@@ -1,0 +1,2 @@
+<h3>Hi {{$data['first_name']}} {{$data['last_name']}},</h3> 
+<p>You have registered on Maxhype Company. Please wait until the Maxhype Company approves your registration. <br> You will be notified after it is approved. Thank You!</p>

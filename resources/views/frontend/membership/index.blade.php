@@ -7,7 +7,7 @@
             <h2>Memberships</h2>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Membership</li>
                 </ul>
             </nav>
@@ -22,7 +22,7 @@
     <div class="container">
     <div class="row">
         @foreach($data['packages'] as $value)
-        @if($value->title == 'Silver')
+        @if($value->title == 'Silver Package')
             <div class="col-lg-4">
                 <div class="price-item">
                     <div class="price-table-head">
@@ -30,12 +30,13 @@
                         <h3>{{$value->title}}</h3>
                     </div>
                     <div class="price-table-price">
-                        <span>{{$value->price}}</span>
+                        <span>$ {{$value->price}}</span>
                     </div>
                     <div class="price-table-content">
                         <ul>
                             <li><i class="fa fa-check" aria-hidden="true"></i>Location : {{$value->location}}</li>
                             <li><i class="fa fa-check" aria-hidden="true"></i>Commission (Per Sale) : {{$value->commision_per_sale}}</li>
+                        </ul>
                      </div>
                     <div class="price-btn">
                         <a href="{{url('/bookings/'.$value->id)}}" class="btn-blue btn-red">See More</a>
@@ -50,12 +51,13 @@
                         <h3>{{$value->title}}</h3>
                     </div>
                     <div class="price-table-price">
-                        <span>{{$value->price}}</span>
+                        <span>$ {{$value->price}}</span>
                     </div>
                     <div class="price-table-content">
                         <ul>
                             <li><i class="fa fa-check" aria-hidden="true"></i>Location : {{$value->location}}</li>
                             <li><i class="fa fa-check" aria-hidden="true"></i>Commission (Per Sale) : {{$value->commision_per_sale}}</li>
+                        </ul>
                      </div>
                     <div class="price-btn">
                         <a href="{{url('/bookings/'.$value->id)}}" class="btn-blue btn-red">See More</a>
@@ -70,12 +72,13 @@
                         <h3>{{$value->title}}</h3>
                     </div>
                     <div class="price-table-price">
-                        <span>{{$value->price}}</span>
+                        <span>$ {{$value->price}}</span>
                     </div>
                     <div class="price-table-content">
                         <ul>
                             <li><i class="fa fa-check" aria-hidden="true"></i>Location : {{$value->location}}</li>
                             <li><i class="fa fa-check" aria-hidden="true"></i>Commission (Per Sale) : {{$value->commision_per_sale}}</li>
+                        </ul>
                      </div>
                     <div class="price-btn">
                         <a href="{{url('/bookings/'.$value->id)}}" class="btn-blue btn-red">See More</a>

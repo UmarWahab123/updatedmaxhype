@@ -17,10 +17,10 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         $role=$request->user()->role->role_title;
-        // if($role!="Admin"){
-        //     $errormessage="Only Admin can access this page";
-        //    return response()->view('errors.403',compact('errormessage'));
-        // }
+        if($role!="Admin"){
+            $errormessage="Only Admin can access this page";
+           return response()->view('errors.403',compact('errormessage'));
+        }
 
         return $next($request);
     }

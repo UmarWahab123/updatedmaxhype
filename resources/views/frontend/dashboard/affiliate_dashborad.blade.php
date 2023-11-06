@@ -33,7 +33,7 @@
         <div class="user-list-image">
             <img class="display-pic" src="{{isset($data['results']->dp) ?url('/').''.$data['results']->dp:''}}" alt="">
         </div>
-         <h2 class="profile-style">{{$data['results']->name}}</h2>
+         <h2 class="profile-style">{{$data['results']->first_name}}&nbsp{{$data['results']->last_name}}</h2>
          <p class="business-email">{{$data['results']->email}}</p>
     </div>
     @if($data['type']=='Affiliates')
@@ -54,14 +54,16 @@
    <div class="row ml-md-5">
    <div class="col-md-12">
       <ul class="nav nav-tabs">
-         <li class="active"><a data-toggle="tab" href="#home">Basic Info</a></li>
+         <li class="tab active"><a data-toggle="tab" href="#home">Basic Info</a></li>
          &nbsp&nbsp&nbsp&nbsp
-         <li><a data-toggle="tab" href="#menu2">Businesses</a></li>
+         <li class="tab"><a data-toggle="tab" href="#menu2">Businesses</a></li>
       </ul>
      <div class="tab-content">
          <div id="home" class="tab-pane active">
-            @if($data['type'] =='Affiliates')
+            @if(Auth::user()->id==$data['results']->id)
+            @if($data['type'] =='Affiliate')
             <button class="btn-blue btn-red reserve text-white mr-4 edit-info">Edit Info</button><br>
+            @endif
             @endif
             <br>
             <div class="row">
@@ -70,6 +72,7 @@
                      <!-- Edit form-->
                      <form class="info-edit d-none form-info" enctype="multipart/form-data">
                          {{ csrf_field() }}
+                          <input class="form-control" name="status" type="hidden" value="Pending">
                           <input class="form-control" name="id" type="hidden" value="{{(isset($data['results']->id) ? $data['results']->id : '')}}">
                          <input class="form-control" name="role_id" type="hidden" value="4">
                          <div class="mb-3">    
@@ -80,32 +83,40 @@
                             <div class="card-body">
                                <div class="col-md-12">
                                   <div class="row">
-                                     <div class="col-md-4">
+                                     <div class="col-md-6">
                                         <div class="form-group m-form__group">
-                                           <label>Name</label>
-                                           <input type="text" name="name" class="form-control" value="{{(isset($data['results']->name) ? $data['results']->name : '')}}">
+                                           <label>First Name</label>
+                                           <input type="text" name="first_name" class="form-control" value="{{(isset($data['results']->first_name) ? $data['results']->first_name : '')}}">
                                         </div>
                                      </div>
-                                     <div class="col-md-4">
+                                      <div class="col-md-6">
+                                        <div class="form-group m-form__group">
+                                           <label>Last Name</label>
+                                           <input type="text" name="last_name" class="form-control" value="{{(isset($data['results']->last_name) ? $data['results']->last_name : '')}}">
+                                        </div>
+                                     </div>
+                                  </div>
+                                     <div class="row">
+                                     <div class="col-md-6">
                                         <div class="form-group m-form__group">
                                            <label>Email</label>
                                            <input type="email" name="email" class="form-control" value="{{(isset($data['results']->email) ? $data['results']->email : '')}}">
                                         </div>
                                      </div>
-                                     <div class="col-md-4">
+                                     <div class="col-md-6">
                                         <div class="form-group m-form__group">
                                            <label>Phone Number</label>
                                            <input type="text" name="phone" class="form-control" value="{{(isset($data['results']->phone) ? $data['results']->phone : '')}}">
                                         </div>
                                      </div>
-                                  </div>
+                                     </div>
                                </div>
                             </div>
                          </div>
                       </form>
                 <!-- End form -->
                   <div class="info-table">
-                     <h4 class="gray">{{$data['results']->name}} Information</h4>
+                     <h4 class="gray">{{$data['results']->first_name}} Information</h4>
                      <div class="table-box affilate-info">
                 @include('frontend.dashboard.affiliate-info')
                        
@@ -115,8 +126,174 @@
                </div>
             </div>
          </div>
-         <div id="menu2" class="tab-pane fade">
-            <div class="row">
+      <div id="menu2" class="tab-pane fade">
+    <!--start business form -->
+      <form class="add-businesses d-none" id="add_new_business" method="post" enctype="multipart/form-data">
+         {{ csrf_field() }}
+         <input class="form-control" name="status" type="hidden" value="Pending">
+         <input class="form-control" name="id" type="hidden">
+         <input class="form-control" name="role_id" type="hidden" value="3">
+         <input class="form-control" name="affiliate_id" type="hidden" value="{{$data['results']->id}}">
+         <div class="mb-3">    
+          <button type="submit" class="btn-blue btn-red mb-1 mb-sm-0 mr-0 mr-sm-1 business-added">Save Changes</button>
+          <a class="btn btn-secondary text-white btn-for-back" style="padding:0.78rem 0.75rem !important ;">Back</a>
+         </div>
+         <div class="card">
+            <div class="card-body">
+               <div class="col-md-12">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Owner First Name</label>
+                           <input type="text" name="first_name" class="form-control m-input m-input--square" required>
+                        </div>
+                       </div>
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Owner Last Name</label>
+                           <input type="text" name="last_name" class="form-control m-input m-input--square" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business Name</label>
+                           <input type="text" name="name" class="form-control m-input m-input--square" required>
+                        </div>
+                     </div>
+                      <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business Website</label>
+                           <input type="text" name="site_link" class="form-control m-input m-input--square">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business Website</label>
+                           <input type="text" name="site_link" class="form-control m-input m-input--square">
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business Type</label>
+                           <select name="type" class="form-control" data-option-id="{{(isset($data['results']->type) ? $data['results']->type : '')}}" required>
+                              <option value="">Select</option>
+                              <option>Restaurants</option>
+                              <option>Bar & Stores</option>
+                              <option>Vehicles-ATV-Bikes-Boats-JetSkis</option>
+                              <option>Adult Entertainment</option>
+                              <option>Medical Marijuana & CBD</option>
+                              <option>Adventure</option>
+                              <option>Afrobeats</option>
+                              <option>Sky Diving</option>
+                              <option>Movie Theaters & Hotels</option>
+                              <option>Clubs</option>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business Country</label>
+                           <select name="country" class="form-control country" data-option-id="{{(isset($data['results']->country) ? $data['results']->country : '')}}" required>
+                              <option value="">Select</option>
+                              @foreach($data['country'] as $key=>$value)
+                              <option class="test" value="{{$value->id}}">{{$value->location_country_name}}</option>
+                              @endforeach
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business Email</label>
+                           <input type="email" name="email" class="form-control m-input m-input--square" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business City</label>
+                           <select name="city" class="form-control city" data-option-id="{{(isset($data['results']->city) ? $data['results']->city : '')}}" required>
+                              <option value="">Select</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Business Phone#</label>
+                           <input type="tel" name="phone" class="form-control m-input m-input--square" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Zip Code</label>
+                           <input type="text" name="postal_code" class="form-control m-input m-input--square zipcode" value="{{(isset($data['results']->postal_code) ? $data['results']->postal_code : '')}}" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group m-form__group">
+                           <label>Discount</label>
+                           <select name="discount" class="form-control" data-option-id="{{(isset($data['results']->discount) ? $data['results']->discount : '')}}">
+                              <option value="">Select</option>
+                              <option>1%</option>
+                              <option>2%</option>
+                              <option>5%</option>
+                              <option>6%</option>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group m-form__group">
+                           <label>Discount Code</label>
+                           <input type="text" name="discount_code" class="form-control m-input m-input--square">                          
+                        </div>
+                     </div>
+                      <div class="col-md-4">
+                        <div class="form-group m-form__group">
+                           <label>Features</label>
+                           <select name="feature" class="form-control" data-option-id="{{(isset($data['results']->feature) ? $data['results']->feature : '')}}" required>
+                              <option value="">Select</option>
+                              <option>Reservation</option>
+                              <option>Purchase</option>
+                           </select>
+                        </div>
+                     </div>
+                      <div class="col-md-4">
+                        <div class="form-group m-form__group">
+                           <label>Password</label>
+                           <input type="password" placeholder="{{(isset($data['results']->id) ? 'Type in to update password' : '')}}" name="password" class="form-control password m-input m-input--square" value="">
+                        </div>
+                     </div>
+                     </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="form-group m-form__group">
+                           <label>Business More Details</label>
+                           <textarea type="text" name="details" rows="10" class="form-control m-input m-input--square">{{(isset($data['results']->details) ? $data['results']->details : '')}}</textarea>
+                        </div>
+                     </div>
+                  </div>
+                  </div>
+               </div>
+            </div>
+      </form>
+    <!--end business form-->
+            <div class="row business-table">
+                 @if(Auth::user()->id==$data['results']->id)
+                 @if($data['type']=='Affiliate')
+
+                <div class="text-right mb-2 btn-add-business"><button class="btn-blue btn-red text-white mr-2">Add Business</button><br></div>
+                @endif
+                @endif
                <div class="col-lg-12 col-md-12 col-xs-12 traffic">
                   <div class="dashboard-list-box">
                      <h4 class="gray mb-2">All Related Businesses</h4>
@@ -125,7 +302,8 @@
                            <thead>
                               <tr role="row">
                                  <th>Sr No</th>
-                                 <th>Owner Name</th>
+                                 <th>Owner First Name</th>
+                                 <th>Owner Last Name</th>
                                  <th>Business Name</th>
                                  <th>Business Website Link</th>
                                  <th>Business Type</th>
@@ -144,7 +322,8 @@
                               @foreach($data['businesses'] as $key=>$value)
                               <tr>
                                  <td>{{$key+1}}</td>
-                                 <td>{{$value->owner_name}}</td>
+                                 <td>{{$value->first_name}}</td>
+                                 <td>{{$value->last_name}}</td>
                                  <td>{{$value->name}}</td>
                                  <td>{{$value->site_link}}</span></td>
                                  <td>{{$value->type}}</td>
@@ -157,8 +336,8 @@
                                  <td>{{$value->discount_code}}</td>
                                  <td>{{$value->status}}</td>
                                  <td>
-                                  <div class="user-btns">
-                                    <a href="{{url('dashboard/'.$value->id.'/affiliate')}}" class="button view-button">View {{$value->feature}}</a>
+                                  <div>
+                                    <a type="button" href="{{url('dashboard/'.$value->id.'/affiliate')}}" class="btn btn-primary button view-button">view detail</a>
                                   </div>
                                  </td>
                               </tr>
@@ -215,6 +394,11 @@
 
 <script type="text/javascript">
   //to add and remove d-none class
+  $(".tab").click(function () {
+    $(".tab").removeClass("active");
+    // $(".tab").addClass("active"); // instead of this do the below 
+    $(this).addClass("active");   
+});
     $(".pencell-icon").click(function(){
          $('.same-class').removeClass("d-none");
     });
@@ -224,7 +408,36 @@
      $(".back-rev").click(function(){
          $('.same-class').addClass("d-none");
     });
+    //for business add remove add d-none
+      $(".btn-add-business").click(function(){
+         $('.add-businesses').removeClass("d-none");
+         $('.business-table').addClass("d-none");
+    });
+     $(".btn-for-back").click(function(){
+         $('.add-businesses').addClass("d-none");
+         $('.business-table').removeClass("d-none");
+    });
  $(document).ready(function() {
+  //Ajax Call for Add Business
+   $('#add_new_business').submit(function(e){
+      e.preventDefault();
+        var token = $('input[name=_token]').val();
+        var formdata=$('#add_new_business').serialize();
+       $.ajax(
+               {
+                 type:"post",
+                 headers:{'X-CSRF-TOKEN': token},
+                 url: "{{url('/savebusiness') }}",
+                 dataType:"json",
+                 data:formdata,
+                 success:function(data)
+                 {
+                 Swal.fire('Business has been Successufully Added !')
+                 $('#add_new_business')[0].reset();   
+                  }
+
+                });
+           });
  $(document).on('click','.save-dp',function(){
         var token = $('input[name=_token]').val();
         var formdata=$('#form_submit2').serialize();
@@ -294,10 +507,41 @@
          $('.info-edit').addClass("d-none");
          $('.info-table').removeClass("d-none");
     });
-      $(".update-info").click(function(){
-         $('.info-edit').addClass("d-none");
-         $('.info-table').removeClass("d-none");
+    //   $(".update-info").click(function(){
+    //      $('.info-edit').addClass("d-none");
+    //      $('.info-table').removeClass("d-none");
+    // });
+
+     // to select country and related cities also zipcode
+     $(".country").change(function(){
+     var id = $(this).val();
+     // alert(id);
+     $.ajax({
+              type:"get",
+              url: "{{url('/getcities')}}/"+id,
+              dataType: "json",
+              success:function(data)
+              { 
+                 $('.city').html(data.response); //to write the respone in the city drop 
+                  @if(isset($data['results']->id));  //to write the selected city name 
+                  var city='{{$data['results']->city}}';//for the edit purpose
+                  $('.city').val(city);
+                  @endif 
+              }
+          });
     });
-   });
+     //to triggerd the zip code from the selected city and then write on the zipcode input
+   $(".city").change(function(){
+      var zip = $(this).find('option:selected').attr('data-zipcode');
+      $('.zipcode').val(zip);
+      
+      });
+ //to triggerd the selected country id  
+@if(isset($data['results']->id))
+   setTimeout(function(){ 
+      $('.country').trigger('change'); 
+     }, 2000);
+   @endif
+ });
 </script>
 @endsection

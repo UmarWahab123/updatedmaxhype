@@ -20,13 +20,5 @@
          <td>Address</td>
          <td>{{$data['results']->address}}</td>
       </tr>
-      <tr>
-         <td>Postal Code</td>
-         <td>{{$data['results']->postal_code}}</td>
-      </tr>
-      <tr>
-         <td>Status</td>
-         <td>{{$data['results']->status}}</td>
-      </tr>
    </tbody>
 </table>

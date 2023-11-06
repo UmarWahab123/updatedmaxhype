@@ -168,6 +168,56 @@ var imagesupload1= {
         }
     }
     ;
+    var imagesupload3 = {
+        init:function() {
+            var fileList = new Array;
+            var fileListinput = new Array;
+            var i =0;
+            Dropzone.options.imagesupload3={
+                paramName:"file",
+                maxFiles:1,
+                maxFilesize:5000,
+                acceptedFiles:".jpg,.jpeg,.png",
+                addRemoveLinks:!0,
+                accept:function(e, o) {
+                    "justinbieber.jpg"==e.name?o("Naha, you don't."): o()
+                },
+                success:function(file, serverFileName) {
+                    fileList[i] = {"serverFileName" : serverFileName, "fileName" : file.name,"fileId" : i };
+                    fileListinput[i] = "/public/uploads/resume/"+serverFileName;
+                    //when multiple file upload use the below line
+                    // $('input[name="dp"]').val(JSON.stringify(fileListinput));
+                    //when single file upload use the below line
+                    $('input[name="cv_file"]').val(fileListinput[i]);
+                    i++;
+                },
+                removedfile:function(file) {
+                    var path ="/public/uploads/resume/";
+                    var rmvFile = "";
+                    for(f=0;f<fileList.length;f++){
+                        if(fileList[f].fileName == file.name)
+                        {
+                            rmvFile = fileList[f].serverFileName;
+                        }
+                    }
+                    if (rmvFile){
+                        $.ajax({
+                            url: document.location.origin+"/deletefiles",
+                            type: "POST",
+                            data: { "fileList" : rmvFile,"path":path },
+                            success: function(data) {
+                                removeImg(fileListinput, rmvFile);
+                                $('input[name="cv_file"]').val('');
+                                $(document).find(file.previewElement).remove();
+                                i--;
+                            }
+                        });
+                    }
+                },
+            }
+
+        }
+    };
     var imagesupload2= {
         init:function() {
             var fileList = new Array;
@@ -219,6 +269,8 @@ var imagesupload1= {
         }
     }
     ;
+
+imagesupload3.init();
 imagesupload2.init();
 imagesupload1.init();
 imagesupload.init();

@@ -1,17 +1,16 @@
 @extends('frontend.layout.header') 
 @section('css')
-
+<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 @endsection
 @section('content')
 <!-- Breadcrumb -->
 <section class="breadcrumb-outer text-center">
 <div class="container">
     <div class="breadcrumb-content">
-        <h2>Login/Register Page3</h2>
+        <h2>Login/Register</h2>
         <nav aria-label="breadcrumb">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Login/Register Page</li>
+                <li class="breadcrumb-item active" aria-current="page">Login/Register</li>
             </ul>
         </nav>
     </div>
@@ -24,6 +23,14 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="login-form">
+                  @if(Session::has('login_msg'))
+                       <div class="alert alert-danger p-2" >
+                            {{ Session::get('login_msg') }}
+                            @php
+                                Session::forget('login_msg');
+                            @endphp
+                        </div>
+                     @endif
                 <form action="{{url('/userlog')}}" id="form_submit" method="post">
                     {{ csrf_field() }}
                     <div class="row">
@@ -35,16 +42,11 @@
                         </div>
                         <div class="form-group col-lg-12">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" id="Name1" placeholder="Enter username or email id">
+                            <input type="email" name="email" class="form-control" id="Name1" placeholder="Enter username or email id" required>
                         </div>
                         <div class="form-group col-lg-12">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control" id="email1" placeholder="Enter correct password">
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="checkbox-outer">
-                                <input type="checkbox" value="Car">Remember Me?
-                            </div>
+                            <input type="password" name="password" class="form-control" id="email1" placeholder="Enter correct password" required>
                         </div>
                         <div class="col-lg-12">
                             <div class="comment-btn">
@@ -53,7 +55,7 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="login-accounts">
-                                <a href="{{url('/forget_pass')}}" class="forgotpw">Forgot Password?</a>
+                                <a href="{{url('/forget_password')}}" class="forgotpw">Forgot Password ?</a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +64,7 @@
         </div>
         <div class="col-lg-6">
             <div class="login-form">
-                <form action="{{url('/businesregsave')}}" id="form_register" method="post">
+                <form id="form_register" method="post">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-lg-12">
@@ -72,49 +74,41 @@
                             </div>
                         </div>
                         <input class="form-control" name="id" type="hidden">
+                        <!-- <input class="form-control" name="status" type="hidden" value="Pending"> -->
                         <div class="form-group col-lg-12">
                             <label>First Name:</label>
-                            <input type="text" class="form-control" name="first_name" placeholder="Enter first name">
+                            <input type="text" id="user_name" class="form-control" name="first_name" placeholder="Enter first name" required>
                         </div>
                         <div class="form-group col-lg-12">
                             <label>Last Name:</label>
-                            <input type="text" class="form-control" name="last_name" placeholder="Enter last name">
+                            <input type="text" id="user_name" class="form-control" name="last_name" placeholder="Enter last name">
                         </div>
                         <div class="form-group col-lg-12">
                             <label>Register As</label>
-                            <select name="role_id" class="form-control" data-option-id="{{(isset($data['results']->role_id) ? $data['results']->role_id : '')}}">
-                                <option value="">Select</option>
-                                @foreach($data['roles'] as $key=>$value)
-                                @if($value->role_title == 'Admin')
-                                 <?php 
-                                 continue; 
-                                 ?>
-                                @endif
-                                <option value="{{$value->id}}">{{$value->role_title}}</option>
-                                @endforeach
+                            <select name="role_id" class="form-control myselect" data-option-id="{{(isset($data['results']->role_id) ? $data['results']->role_id : '')}}" required>
+                            <option value="">Select</option>
+                            @foreach($data['roles'] as $key=>$value)
+                            @if($value->role_title == 'Admin')
+                             <?php 
+                             continue; 
+                             ?>
+                            @endif
+                            <option value="{{$value->id}}">{{$value->role_title}}</option>
+                            @endforeach
                              </select>
+                        </div>
+                          <div class="form-group col-lg-12 d-none refralcode">
+                            <label>Referral Code</label>
+                            <input type="text" class="form-control" name="referral_code" id="referral_code" value="" placeholder="Enter the affiliate referral code">
                         </div>
                         <div class="form-group col-lg-12">
                             <label>Email:</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="abc@xyz.com">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="abc@xyz.com" required>
                         </div>
-                        <!-- <div class="form-group col-lg-12">
-                            <label>Phone Number:</label>
-                            <input type="text" class="form-control" id="date1" placeholder="Select Date">
-                        </div> -->
                         <div class="form-group col-xs-6">
                             <label>Password :</label>
-                            <input type="password" name="password" class="form-control" id="date" placeholder="Enter Password">
+                            <input type="password" name="password" class="form-control" id="date" placeholder="Enter Password" required>
                         </div>
-                      <!--   <div class="form-group col-xs-6 col-left-padding">
-                            <label>Confirm Password :</label>
-                            <input type="password" name="password" class="form-control" id="phnumber" placeholder="Re-enter Password">
-                        </div> -->
-                      <!--   <div class="col-lg-12">
-                            <div class="checkbox-outer">
-                                <input type="checkbox" name="vehicle2" value="Car"> I agree to the <a href="#">terms and conditions.</a>
-                            </div>
-                        </div> -->
                         <div class="col-lg-12">
                             <div class="comment-btn">
                                 <button type="submit" class="btn-blue btn-red btn-register">Register Now</button>
@@ -129,10 +123,19 @@
 </section>
 @endsection
 @section('js')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 <script type="text/javascript">
+$(document).on('keypress', '#user_name', function (event) {
+    var regex = new RegExp("^[a-zA-Z ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
+});
 $(document).ready(function() {
-    $(document).on('click','.btn-register',function(e){
-      e.preventDefault();
+    $('#form_register').submit(function(e){
+       e.preventDefault();
         var token = $('input[name=_token]').val();
         var formdata=$('#form_register').serialize();
        $.ajax(
@@ -147,9 +150,12 @@ $(document).ready(function() {
                     if(data.response == 1){
                     Swal.fire('You Have Successufully Registerd !')
                     $('#form_register')[0].reset();
-                    }  
+                    }
+                    else if(data.response == 2){
+                     Swal.fire('Invalid Referal Code')
+                    }
                     else{
-                     Swal.fire('Email is already exist ! Try a valid email');
+                     Swal.fire('Email is already exist ! Try a valid email')
                     }
 
                     }
@@ -157,6 +163,15 @@ $(document).ready(function() {
                 });
            });
     });
+//to click the option of the select tag and take the value of that option
+$(document).on('change','select[name=role_id]',function(){
+  var value=$(this).val();
+  if(value==3){
+     $('.refralcode').removeClass('d-none');
+  }else{
+    $('.refralcode').addClass('d-none');
+   }
+});
 
 </script>
 
